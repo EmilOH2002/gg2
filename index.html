@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gossip Girl</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #000; /* Fondo negro */
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://via.placeholder.com/1500'); /* Fondo de ejemplo */
+      background-size: cover;
+      background-position: center;
+      backdrop-filter: blur(5px); /* Desenfoque de fondo */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    /* Título principal */
+    h1 {
+      font-size: 4rem;
+      color: #ffd700; /* Color dorado */
+      text-align: center;
+      margin-top: 50px;
+      text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    /* Contenedor de publicaciones */
+    .post-container {
+      width: 80%;
+      max-width: 900px;
+      margin-top: 20px;
+    }
+
+    /* Diseño del post */
+    .post {
+      background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro para posts */
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+      transition: transform 0.4s ease, opacity 0.3s ease;
+      border: 1px solid #ffd700;
+    }
+
+    .post:hover {
+      transform: scale(1.05);
+      opacity: 0.95;
+    }
+
+    /* Estilo de área de texto */
+    textarea {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: 2px solid #ffd700;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #333; /* Color oscuro para el área de texto */
+      resize: vertical;
+      margin-bottom: 15px;
+    }
+
+    /* Botón de publicación */
+    button {
+      background-color: #ffd700;
+      color: #000;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.3rem;
+      margin-top: 10px;
+      transition: all 0.4s ease;
+    }
+
+    button:hover {
+      background-color: #e6c200;
+      transform: scale(1.05); /* Efecto de aumentar tamaño */
+    }
+
+    /* Animación de XOXO */
+    .xoxo {
+      font-size: 3.5rem;
+      text-align: center;
+      font-family: 'Times New Roman', serif;
+      color: #ffd700;
+      margin-top: 50px;
+      opacity: 1;
+      animation: xoxoAnim 4s ease-in-out infinite;
+      font-weight: bold;
+    }
+
+    @keyframes xoxoAnim {
+      0% {
+        opacity: 0.5;
+        transform: translateY(-10px);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0.5;
+        transform: translateY(10px);
+      }
+    }
+
+    /* Citas de personajes */
+    .quote-footer {
+      text-align: center;
+      font-style: italic;
+      color: #aaa;
+      margin-top: 70px;
+      font-size: 1.2rem;
+    }
+
+    /* Estilo de los posts destacados */
+    .post h3 {
+      color: #ffd700;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .post-container {
+        width: 100%;
+      }
+
+      textarea {
+        font-size: 0.9rem;
+      }
+
+      button {
+        font-size: 1.1rem;
+        padding: 10px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Gossip Girl</h1>
+
+  <!-- Contenedor de publicaciones -->
+  <div class="post-container">
+    <div class="post" id="chisme1">
+      <h3>Chisme de la Semana</h3>
+      <p id="chisme-text"></p>
+    </div>
+  </div>
+
+  <!-- Caja para publicar un nuevo secreto -->
+  <div class="post">
+    <h3>Publica tu Secreto</h3>
+    <textarea id="nuevo-secreto" placeholder="Escribe un chisme..."></textarea>
+    <button onclick="publicarSecreto()">Publicar Secreto</button>
+  </div>
+
+  <!-- Frase icónica de Gossip Girl -->
+  <div class="quote-footer">
+    <p>You know you love me, XOXO, Gossip Girl</p>
+  </div>
+
+  <!-- Animación XOXO -->
+  <div class="xoxo">
+    XOXO, Gossip Girl
+  </div>
+
+  <script>
+    // Frases o momentos icónicos de Gossip Girl
+    const chismes = [
+      "Blair Waldorf nunca deja de sorprender. ¿Se ha hecho amiga de Serena van der Woodsen?",
+      "Chuck Bass... ¿Un hombre de negocios o un hombre de misterios?",
+      "Dan Humphrey es mucho más que un chico de Brooklyn. ¿Estará listo para el mundo de la élite?",
+      "La verdadera pregunta es, ¿qué está haciendo Nate Archibald en la sombra de todos?",
+      "Serena van der Woodsen, la chica que todos creen conocer, pero nadie lo hace realmente.",
+      "¿Será Blair Waldorf realmente la reina de la Upper East Side o tiene competencia este año?",
+      "Chuck y Blair, una historia que parece imposible, pero todos sabemos lo que pasa con ellos.",
+      "Serena van der Woodsen y Nate Archibald, ¿más que amigos o solo un sueño de verano?"
+    ];
+
+    // Función para seleccionar un chisme aleatorio y actualizar la página
+    function actualizarChisme() {
+      const chismeIndex = Math.floor(Math.random() * chismes.length);
+      const chismeTexto = document.getElementById('chisme-text');
+      chismeTexto.textContent = chismes[chismeIndex];
+    }
+
+    // Función para publicar un nuevo secreto
+    function publicarSecreto() {
+      const nuevoSecreto = document.getElementById('nuevo-secreto').value;
+      if (nuevoSecreto.trim() !== '') {
+        const nuevoChisme = document.createElement('div');
+        nuevoChisme.classList.add('post');
+        nuevoChisme.innerHTML = `
+          <h3>Nuevo Secreto</h3>
+          <p>${nuevoSecreto}</p>
+        `;
+        document.querySelector('.post-container').appendChild(nuevoChisme);
+        document.getElementById('nuevo-secreto').value = ''; // Limpiar el campo de texto
+      } else {
+        alert('Por favor escribe un secreto antes de publicar.');
+      }
+    }
+
+    // Ejecutar la función de actualización al cargar la página
+    window.onload = function() {
+      actualizarChisme();
+    };
+  </script>
+</body>
+</html>
